@@ -91,6 +91,9 @@ class Problem:
         # Inverse of information matrix
         self._covariance_matrix: np.ndarray = None
 
+        # Cost List per iteration
+        self.residual_values_by_iter: List[List[float]] = []
+
     def add_residual(self, residual: Residual, loss: LossFunction = L2Loss()):
         """Adds a residual to the problem, along with a robust loss
         function to use. Default loss function is the standard L2Loss.
@@ -262,9 +265,7 @@ class Problem:
             # Compute the new value of the cost function after the update
             e, H, cost = self.compute_error_jac_cost(variables=variables_test)
 
-            gain_ratio = (prev_cost - cost) / (
-                0.5 * delta_x.T @ (mu * delta_x - b)
-            )
+            gain_ratio = (prev_cost - cost) / (0.5 * delta_x.T @ (mu * delta_x - b))
             gain_ratio = gain_ratio.item(0)
 
             # If the gain ratio is above zero, accept the step
@@ -331,11 +332,9 @@ class Problem:
         e = np.zeros((self._size_errors,))
         H = np.zeros((self._size_errors, self._size_state))
         cost_list = []
-
+        raw_residual_list: List[float] = []
         # For each factor, evaluate error and Jacobian
-        for i, (residual, loss) in enumerate(
-            zip(self.residual_list, self.loss_list)
-        ):
+        for i, (residual, loss) in enumerate(zip(self.residual_list, self.loss_list)):
             variables_list = [variables[key] for key in residual.keys]
 
             # Do not compute Jacobian for variables that are held fixed
@@ -345,9 +344,7 @@ class Problem:
             ]
 
             # Evaluate current factor at states
-            error, jacobians = residual.evaluate(
-                variables_list, compute_jacobians
-            )
+            error, jacobians = residual.evaluate(variables_list, compute_jacobians)
 
             # Compute the robust loss weight and then weight the error
             u = np.linalg.norm(error)
@@ -360,6 +357,7 @@ class Problem:
             # Compute cost
             cost = np.sum(loss.loss(u))
             cost_list.append(cost)
+            raw_residual_list.append(u)
 
             # Place each Jacobian in the correct spot
             for j, key in enumerate(residual.keys):
@@ -368,10 +366,10 @@ class Problem:
                     # Correctly weight the Jacobian
                     jacobian = sqrt_loss_weight * jacobian
 
-                    H[
-                        self.residual_slices[i], self.variable_slices[key]
-                    ] = jacobian
+                    H[self.residual_slices[i], self.variable_slices[key]] = jacobian
 
+        # Save all the residual values
+        self.residual_values_by_iter.append(raw_residual_list)
         # Sum up costs from each residual
         cost = np.sum(np.array(cost_list))
 
@@ -436,9 +434,7 @@ class Problem:
                 delta_xi_current = delta_x[slc, [0]]
                 variables[key] = var.plus(delta_xi_current)
 
-    def get_covariance_block(
-        self, key_1: Hashable, key_2: Hashable
-    ) -> np.ndarray:
+    def get_covariance_block(self, key_1: Hashable, key_2: Hashable) -> np.ndarray:
         """Retrieve the covariance block corresponding to two variables.
 
         Parameters

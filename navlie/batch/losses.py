@@ -41,7 +41,7 @@ class L2Loss(LossFunction):
         return 0.5 * e * e
 
     def weight(self, x: float):
-        return 1.0
+        return np.ones(x.size)
 
 
 class CauchyLoss(LossFunction):
