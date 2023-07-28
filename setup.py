@@ -15,7 +15,6 @@ setup(
         "scipy>=1.7.1",
         "matplotlib>=3.4.3",
         "joblib>=1.2.0",
-        "pylie @ git+https://github.com/decargroup/pylie@main",
         "tqdm>=4.64.1",
         "seaborn>=0.11.2",
     ],
