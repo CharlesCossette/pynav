@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Toy Problem - Lie group approach &#8212; navlie 0.1.0 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/blank.css?v=c4c5097c" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=40769cce"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Jacobians in navlie" href="jacobians.html" />
+    <link rel="prev" title="Toy Problem - Traditional Approach" href="traditional.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">navlie</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  Home
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../tutorial.html">
+  Tutorial
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorial.html">
+   1. Getting Started
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="traditional.html">
+   2. Toy Problem - Traditional
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   3. Toy Problem - Lie groups
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="jacobians.html">
+   4. Specifying Jacobians
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="composite.html">
+   4. Composite States
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="batch.html">
+   Toy Batch SLAM Example
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Define-the-State">
+   Define the State
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Define-the-Process-Model">
+   Define the Process Model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Define-the-Measurement-Model">
+   Define the Measurement Model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Run-the-Filter!">
+   Run the Filter!
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Built-in-Lie-group-states">
+   Built-in Lie group states
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="Toy-Problem---Lie-group-approach">
+<h1>Toy Problem - Lie group approach<a class="headerlink" href="#Toy-Problem---Lie-group-approach" title="Permalink to this heading">¶</a></h1>
+<img alt="Toy Problem" src="../_images/toy_problem.png" />
+<p>Another way we could approach the same state estimation task is to instead use Lie group theory, which is becoming increasingly common practice in state estimation. Lie group theory can be very abstract, and the main references that navlie refer to are the following:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/1812.01537">A micro Lie theory for state estimation in robotics</a></p></li>
+<li><p><a class="reference external" href="http://asrl.utias.utoronto.ca/~tdb/bib/barfoot_ser17.pdf">T.Barfoot, State Estimation for Robotics</a></p></li>
+</ol>
+<section id="Define-the-State">
+<h2>Define the State<a class="headerlink" href="#Define-the-State" title="Permalink to this heading">¶</a></h2>
+<p>Instead of representing the state using a vector, we will represent the state using an element of the <em>special Euclidean group</em> <span class="math notranslate nohighlight">\(SE(2)\)</span>, sometimes called <em>pose transformation matrices</em>. Elements of this group are 3x3 matrices of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{T} = \begin{bmatrix} \mathbf{C}_{ab}(\theta) &amp; \mathbf{r}_a \\ \mathbf{0} &amp; 1 \end{bmatrix} \in SE(2)\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{r}_a = [x,y]^T\)</span> again denotes the position of the robot and <span class="math notranslate nohighlight">\(\mathbf{C}_{ab}(\theta) \in SO(2)\)</span> is a rotation matrix (sometimes called a direction cosine matrix) with the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{C}_{ab}(\theta) = \begin{bmatrix} \cos \theta &amp; - \sin \theta \\ \sin \theta &amp; \cos \theta \end{bmatrix}.\end{split}\]</div>
+<p>The rotation matrix transforms vectors resolved in one frame to another frame, i.e. <span class="math notranslate nohighlight">\(\mathbf{r}_a = \mathbf{C}_{ab} \mathbf{r}_b\)</span>. Unlike vectors, elements of <span class="math notranslate nohighlight">\(SO(2)\)</span> or <span class="math notranslate nohighlight">\(SE(2)\)</span> cannot be added together to produce another valid element of <span class="math notranslate nohighlight">\(SE(2)\)</span>, but they can be multiplied together with the result still having the same form.</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{T}_1 \mathbf{T}_2 \in SE(2)\]</div>
+<p>To proceed further with our mathematical setup, we need to define a few very common operators seen in Lie group theory. The first two are the “wedge” <span class="math notranslate nohighlight">\((\cdot)^\wedge\)</span> and “vee” <span class="math notranslate nohighlight">\((\cdot)^\vee\)</span> operators, which for this specific group has the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix} \theta \\ x \\ y \end{bmatrix}^\wedge = \begin{bmatrix} 0 &amp; -\theta &amp; x \\ \theta &amp; 0 &amp; y \\ 0 &amp; 0 &amp; 0 \end{bmatrix}\end{split}\]</div>
+<p>and the <span class="math notranslate nohighlight">\((\cdot)^\vee\)</span> operator simply does the exact inverse of <span class="math notranslate nohighlight">\((\cdot)^\wedge\)</span>. We can implement them as follows.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">reset</span> -f
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Helper functions for SE(2)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">wedge_se2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span>   <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+                     <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>     <span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span>
+                     <span class="p">[</span>   <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>    <span class="mi">0</span><span class="p">]])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">vee_se2</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<br/></pre></div>
+</div>
+</div>
+<p>Two other fundamental relationships appearing in Lie group theory are the exponential (denoted <span class="math notranslate nohighlight">\(\exp\)</span>) and logarithmic (denoted <span class="math notranslate nohighlight">\(\log\)</span>) maps. While these have a deeper definition, for our case it suffices to think of them as simply the <a class="reference external" href="https://en.wikipedia.org/wiki/Matrix_exponential">matrix exponential</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Logarithm_of_a_matrix">matrix logarithm</a>. Using the wedge and vee operators for <span class="math notranslate nohighlight">\(SE(2)\)</span> defined above, we can convert a 3x1 vector to
+an <span class="math notranslate nohighlight">\(SE(2)\)</span> element and back as follows</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">expm</span><span class="p">,</span> <span class="n">logm</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">expm</span><span class="p">(</span><span class="n">wedge_se2</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">])))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;An element of SE2:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">vee_se2</span><span class="p">(</span><span class="n">logm</span><span class="p">(</span><span class="n">T</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">The original vector &#39;representing&#39; it:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+An element of SE2:
+[[ 0.99500417 -0.09983342  0.18467933]
+ [ 0.09983342  0.99500417  0.30949192]
+ [ 0.          0.          1.        ]]
+
+The original vector &#39;representing&#39; it:
+[0.1 0.2 0.3]
+</pre></div></div>
+</div>
+<p>We now have the tools we need to abstract-ify our problem a little bit. As commonly seen in the literature, we can define the so-called “oplus” and “ominus” operators as follows (sometimes called “boxplus” <span class="math notranslate nohighlight">\(\boxplus\)</span> and “boxminus” <span class="math notranslate nohighlight">\(\boxminus\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\mathbf{T}_2 &amp;= \mathbf{T}_1 \oplus \boldsymbol{\xi} := \mathbf{T}_1 \exp(\boldsymbol{\xi}^\wedge)  \\
+\boldsymbol{\varepsilon} &amp;= \mathbf{T}_2 \ominus \mathbf{T}_1 := \log(\mathbf{T}_2^{-1} \mathbf{T}_1)^\vee
+\end{aligned}\end{split}\]</div>
+<p>Here, both <span class="math notranslate nohighlight">\(\boldsymbol{\varepsilon}, \boldsymbol{\xi} \in \mathbb{R}^3\)</span> are 3x1 vectors. The <span class="math notranslate nohighlight">\(\oplus: SE(2) \times \mathbb{R}^3 \to SE(2)\)</span> operator “adds” a vector to an <span class="math notranslate nohighlight">\(SE(2)\)</span> element to produce another <span class="math notranslate nohighlight">\(SE(2)\)</span> element, and the <span class="math notranslate nohighlight">\(\ominus:SE(2) \times SE(2) \to \mathbb{R}^3\)</span> operator “subtracts” two <span class="math notranslate nohighlight">\(SE(2)\)</span> elements to produce a vector that represents the “difference” between them.</p>
+<p>With this context, lets implement an <span class="math notranslate nohighlight">\(SE(2)\)</span> state inside navlie’s framework. To define a custom state, you must subclass the <code class="docutils literal notranslate"><span class="pre">nav.State</span></code> abstract class and you <em>must</em> implement the <code class="docutils literal notranslate"><span class="pre">plus</span></code>, <code class="docutils literal notranslate"><span class="pre">minus</span></code>, and <code class="docutils literal notranslate"><span class="pre">copy</span></code> methods. These methods play exactly the role of <span class="math notranslate nohighlight">\(\oplus\)</span> and <span class="math notranslate nohighlight">\(\ominus\)</span> described above, while the <code class="docutils literal notranslate"><span class="pre">copy</span></code> method is used to create a deep copy of that state object. In addition, state objects must hold an integer property named <code class="docutils literal notranslate"><span class="pre">dof</span></code> that specifies the <em>degrees
+of freedom</em> associated with that state. For <span class="math notranslate nohighlight">\(SE(2)\)</span>, this is 3.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">navlie</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nav</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SE2State</span><span class="p">(</span><span class="n">nav</span><span class="o">.</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">stamp</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">dof</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stamp</span><span class="o">=</span><span class="n">stamp</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">plus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">new_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">@</span> <span class="n">expm</span><span class="p">(</span><span class="n">wedge_se2</span><span class="p">(</span><span class="n">dx</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">SE2State</span><span class="p">(</span><span class="n">new_value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stamp</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">minus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;SE2State&quot;</span><span class="p">):</span>
+        <span class="n">other_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">vee_se2</span><span class="p">(</span><span class="n">logm</span><span class="p">(</span><span class="n">other_inv</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">SE2State</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">stamp</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">SE2State</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+SE2State(stamp=0.0, dof=3, state_id=None)
+    [[1. 0. 0.]
+     [0. 1. 0.]
+     [0. 0. 1.]]
+</pre></div></div>
+</div>
+</section>
+<section id="Define-the-Process-Model">
+<h2>Define the Process Model<a class="headerlink" href="#Define-the-Process-Model" title="Permalink to this heading">¶</a></h2>
+<p>Now, we must adapt the process model to work with our new <code class="docutils literal notranslate"><span class="pre">SE2State</span></code>. It is well known that the rotational kinematics can be written directly in terms of rotation matrices using</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\dot{\mathbf{C}}_{ab} = \mathbf{C}_{ab}\begin{bmatrix}0 &amp; -\omega \\ \omega &amp; 0 \end{bmatrix}\end{split}\]</div>
+<p>and that the translational kinematics can be written in vector form using</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\dot{\mathbf{r}}_a = \mathbf{C}_{ab} \begin{bmatrix} v \\ 0 \end{bmatrix} .\end{split}\]</div>
+<p>By stacking these into matrices it follows that</p>
+<div class="math notranslate nohighlight">
+\[\dot{\mathbf{T}} = \mathbf{T} \boldsymbol{\varpi}^\wedge\]</div>
+<p>where <span class="math notranslate nohighlight">\(\boldsymbol{\varpi} = [\omega, v, 0]^T\)</span>. This equation is now a linear, matrix-valued ODE, and can be integrated exactly over a short duration <span class="math notranslate nohighlight">\(\Delta t = t_{k+1} - t_k\)</span> using the matrix exponential. This gives us the following discrete-time process model:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{T}_{k+1} = \mathbf{T}_k \exp(\boldsymbol{\varpi}_k^\wedge \Delta t)\]</div>
+<p>which we can implement as follows</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">WheeledRobotSE2</span><span class="p">(</span><span class="n">nav</span><span class="o">.</span><span class="n">ProcessModel</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_covariance_matrix</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">=</span> <span class="n">input_covariance_matrix</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">SE2State</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span><span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">VectorInput</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
+        <span class="n">vel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">u</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">x_next</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">x_next</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span> <span class="o">@</span> <span class="n">expm</span><span class="p">(</span><span class="n">wedge_se2</span><span class="p">(</span><span class="n">vel</span> <span class="o">*</span> <span class="n">dt</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">x_next</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">input_covariance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">SE2State</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span><span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">VectorInput</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span>
+
+<span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.1</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">process_model</span> <span class="o">=</span> <span class="n">WheeledRobotSE2</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Define-the-Measurement-Model">
+<h2>Define the Measurement Model<a class="headerlink" href="#Define-the-Measurement-Model" title="Permalink to this heading">¶</a></h2>
+<p>Finally, our measurement model remains largely unchanged. We just need to extract the position from an <code class="docutils literal notranslate"><span class="pre">SE2State</span></code> object now, as done below.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">RangeToLandmarkSE2</span><span class="p">(</span><span class="n">nav</span><span class="o">.</span><span class="n">MeasurementModel</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">landmark_position</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">measurement_covariance</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">landmark_position</span> <span class="o">=</span> <span class="n">landmark_position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">measurement_covariance</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">SE2State</span><span class="p">):</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">landmark_position</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">covariance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">SE2State</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span>
+
+
+<span class="n">landmarks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="n">meas_models</span> <span class="o">=</span> <span class="p">[</span><span class="n">RangeToLandmarkSE2</span><span class="p">(</span><span class="n">landmark</span><span class="p">,</span>  <span class="mf">0.1</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">landmark</span> <span class="ow">in</span> <span class="n">landmarks</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Run-the-Filter!">
+<h2>Run the Filter!<a class="headerlink" href="#Run-the-Filter!" title="Permalink to this heading">¶</a></h2>
+<p>And that’s it! All remaining snippets are now <em>literally</em> copy-pasted from our previous approach with zero modifications. Using the abstraction framework in navlie, we can easily switch between different state representations and process/measurement models without having to change any of data generation or filtering code.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dg</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">DataGenerator</span><span class="p">(</span>
+    <span class="n">process_model</span><span class="o">=</span><span class="n">process_model</span><span class="p">,</span>                  <span class="c1"># process model to use</span>
+    <span class="n">input_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]),</span> <span class="c1"># a callable that specifies the input values over time</span>
+    <span class="n">input_covariance</span><span class="o">=</span> <span class="n">Q</span><span class="p">,</span>                          <span class="c1"># numpy array or callable that specifies the input covariance over time</span>
+    <span class="n">input_freq</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>                                <span class="c1"># the frequency (Hz) at which the input is sampled (and the process model integrated)</span>
+    <span class="n">meas_model_list</span><span class="o">=</span><span class="n">meas_models</span><span class="p">,</span>                  <span class="c1"># a list of measurement models to use</span>
+    <span class="n">meas_freq_list</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>               <span class="c1"># corresponding measurement frequencies (Hz)</span>
+<span class="p">)</span>
+
+<span class="n">state_data</span><span class="p">,</span> <span class="n">input_data</span><span class="p">,</span> <span class="n">meas_data</span> <span class="o">=</span> <span class="n">dg</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">state_data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">input_data</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">meas_data</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+SE2State(stamp=0.02, dof=3, state_id=None)
+    [[ 9.99950000e-01 -9.99983333e-03  5.99990000e-03]
+     [ 9.99983333e-03  9.99950000e-01  2.99997500e-05]
+     [ 0.00000000e+00  0.00000000e+00  1.00000000e+00]]
+VectorInput(stamp=0.04, state_id=None)
+    [0.52438924 0.40056502]
+Measurement(stamp=0.0, state_id=None) of PoseRangeToLandMark
+    2.299276237837416
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First, define the filter</span>
+<span class="n">kalman_filter</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">ExtendedKalmanFilter</span><span class="p">(</span><span class="n">process_model</span><span class="p">)</span>
+<span class="n">P0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mf">0.1</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">**</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># Initial covariance</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">StateWithCovariance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">P0</span><span class="p">)</span>  <span class="c1"># Estimate and covariance in one container</span>
+
+<span class="n">meas_idx</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">meas_data</span><span class="p">[</span><span class="n">meas_idx</span><span class="p">]</span>
+<span class="n">estimates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">input_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+    <span class="c1"># Fuse any measurements that have occurred.</span>
+    <span class="k">while</span> <span class="n">y</span><span class="o">.</span><span class="n">stamp</span> <span class="o">&lt;</span> <span class="n">input_data</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stamp</span> <span class="ow">and</span> <span class="n">meas_idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">meas_data</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">kalman_filter</span><span class="o">.</span><span class="n">correct</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+
+        <span class="c1"># Load the next measurement</span>
+        <span class="n">meas_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">meas_idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">meas_data</span><span class="p">):</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">meas_data</span><span class="p">[</span><span class="n">meas_idx</span><span class="p">]</span>
+
+    <span class="c1"># Predict until the next input is available</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">input_data</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stamp</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">stamp</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">kalman_filter</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+
+    <span class="n">estimates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">GaussianResultList</span><span class="o">.</span><span class="n">from_estimates</span><span class="p">(</span><span class="n">estimates</span><span class="p">,</span> <span class="n">state_data</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">plot_error</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Estimation Errors&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;theta (rad)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;x (m)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y (m)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">plot_nees</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;NEES&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorial_lie_groups_12_0.png" src="../_images/tutorial_lie_groups_12_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorial_lie_groups_12_1.png" src="../_images/tutorial_lie_groups_12_1.png" />
+</div>
+</div>
+</section>
+<section id="Built-in-Lie-group-states">
+<h2>Built-in Lie group states<a class="headerlink" href="#Built-in-Lie-group-states" title="Permalink to this heading">¶</a></h2>
+<p>While we implemented our own <code class="docutils literal notranslate"><span class="pre">SE2State</span></code> from scratch here for pedagogical purposes, navlie comes with many built-in Lie group states that you can use out of the box. Some of the built-in Lie group states include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nav.lib.SO2State</span></code>: representing 2D rotations using, beloning to the group <span class="math notranslate nohighlight">\(SO(2)\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nav.lib.SO3State</span></code>: representing 3D rotations using, beloning to the group <span class="math notranslate nohighlight">\(SO(3)\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nav.lib.SE2State</span></code>: representing 2D poses using, beloning to the group <span class="math notranslate nohighlight">\(SE(2)\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nav.lib.SE3State</span></code>: representing 3D poses using, beloning to the group <span class="math notranslate nohighlight">\(SE(3)\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nav.lib.SE23State</span></code>: representing “extended” poses that also contain velocity information, belonging to the group <span class="math notranslate nohighlight">\(SE_2(3)\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nav.lib.SL3State</span></code>: representing 3D homographies, belonging to the group <span class="math notranslate nohighlight">\(SL(3)\)</span></p></li>
+</ul>
+<p>Each of these classes stores the value as a square numpy array in the <code class="docutils literal notranslate"><span class="pre">x.value</span></code> property. Moreover, closed-form formulas for the exponential and logarithmic maps have been implemented for each of these states, which is faster than using <code class="docutils literal notranslate"><span class="pre">scipy.linalg.expm</span></code> and <code class="docutils literal notranslate"><span class="pre">scipy.linalg.logm</span></code>. These underlying operations have even been implemented in C++ for maximum speed.</p>
+</section>
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="traditional.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Toy Problem - Traditional Approach</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="jacobians.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Jacobians in navlie</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.1.2.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

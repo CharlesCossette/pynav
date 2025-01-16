@@ -1,0 +1,5 @@
+sphinx==7.1.2
+pandoc
+nbsphinx
+ipykernel
+pydata-sphinx-theme==0.7.2

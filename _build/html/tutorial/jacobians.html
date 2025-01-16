@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Jacobians in navlie &#8212; navlie 0.1.0 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/blank.css?v=c4c5097c" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=40769cce"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Composite States" href="composite.html" />
+    <link rel="prev" title="Toy Problem - Lie group approach" href="lie_groups.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">navlie</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  Home
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../tutorial.html">
+  Tutorial
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorial.html">
+   1. Getting Started
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="traditional.html">
+   2. Toy Problem - Traditional
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lie_groups.html">
+   3. Toy Problem - Lie groups
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   4. Specifying Jacobians
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="composite.html">
+   4. Composite States
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="batch.html">
+   Toy Batch SLAM Example
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Jacobians---Traditional-Approach">
+   Jacobians - Traditional Approach
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Jacobians---Lie-Group-Approach">
+   Jacobians - Lie Group Approach
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="Jacobians-in-navlie">
+<h1>Jacobians in navlie<a class="headerlink" href="#Jacobians-in-navlie" title="Permalink to this heading">¶</a></h1>
+<p>As you may know, many state estimation algorithm require access to process model and measurement model Jacobians, with respect to the state and sometimes other inputs. For states belonging to Lie groups, algorithms will require <em>Lie Jacobians</em>, which differ from traditional derivatives as they conform to the constraints of the group. The abstraction provided by the <span class="math notranslate nohighlight">\(\oplus\)</span> and <span class="math notranslate nohighlight">\(\ominus\)</span> operators (implemented with <code class="docutils literal notranslate"><span class="pre">State.plus</span></code> and <code class="docutils literal notranslate"><span class="pre">State.minus</span></code> respectively) allow for a generic
+definition of a derivative:</p>
+<div class="math notranslate nohighlight">
+\[\left.\frac{D f(\mathcal{X})}{D \mathcal{X}}\right|_{\bar{\mathcal{X}} }\triangleq \left.\frac{\partial f(\bar{\mathcal{X}} \oplus \delta \mathbf{x}) \ominus f(\bar{\mathcal{X}})}{\partial \delta \mathbf{x}}\right|_{\delta \mathbf{x} = \mathbf{0}},\]</div>
+<p>which can be shown to fall back to a traditional derivatives when <span class="math notranslate nohighlight">\(\oplus\)</span> and <span class="math notranslate nohighlight">\(\ominus\)</span> are defined to be regular addition/subtraction. This derivative definition is used universally throughout navlie, and roughly follows what is done in the <a class="reference external" href="https://arxiv.org/pdf/1812.01537.pdf">Micro Lie Theory paper</a>. In that reference, seperate definitions are given for “left” and “right” derivatives, whereas we have aggregated them into a single definition, with left and right derivatives
+naturally arising from the choice of <span class="math notranslate nohighlight">\(\oplus\)</span> and <span class="math notranslate nohighlight">\(\ominus\)</span> operators.</p>
+<p>If you dont want to worry about this, the good news is that navlie computes Lie Jacobians for you by default using finite difference. However, finite difference can have some drawbacks, such as being computationally expensive and less accurate than analytic derivatives. In this notebook, we will show you how to use analytic derivatives in navlie, which offer the maximum accuracy and speed.</p>
+<section id="Jacobians---Traditional-Approach">
+<h2>Jacobians - Traditional Approach<a class="headerlink" href="#Jacobians---Traditional-Approach" title="Permalink to this heading">¶</a></h2>
+<p>Recall the traditional approach to the previous example. We had defined the state to be <span class="math notranslate nohighlight">\(\mathbf{x} = [\theta, x, y]^T\)</span> and the process model to be</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\theta_{k+1} &amp;= \theta_k + \omega_k \Delta t \\
+x_{k+1} &amp;= x_k + v_k \cos(\theta_k) \Delta t \\
+y_{k+1} &amp;= y_k + v_k \sin(\theta_k) \Delta t
+\end{aligned}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\omega_k\)</span> is the angular velocity and <span class="math notranslate nohighlight">\(v_k\)</span> is the linear velocity. Since the state is just a regular vector, Lie Jacobians fall back to regular Jacobians, and standard derivative techniques lead to the following expressions for the process model Jacobian with respect to the state</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{F} := \frac{\partial f(\mathbf{x}_k, \mathbf{u}_k)}{\partial \mathbf{x}_k} = \begin{bmatrix} 1 &amp; 0 &amp; 0 \\ -v_k \sin(\theta_k) \Delta t &amp; 1 &amp; 0 \\ v_k \cos(\theta_k) \Delta t &amp; 0 &amp; 1 \end{bmatrix}\end{split}\]</div>
+<p>To implement this Jacobian in navlie, all we need to do is override the <code class="docutils literal notranslate"><span class="pre">jacobian()</span></code> method in our process model, and it will get used automatically by the estimation algorithms. Adding this to our process model from before:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">navlie</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nav</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">navlie.lib</span><span class="w"> </span><span class="kn">import</span> <span class="n">VectorInput</span><span class="p">,</span> <span class="n">VectorState</span>
+
+<span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.1</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># Input noise covariance with 0.1 m/s of standard deviation</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">WheeledRobot</span><span class="p">(</span><span class="n">nav</span><span class="o">.</span><span class="n">ProcessModel</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_covariance</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">=</span> <span class="n">input_covariance</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">VectorState</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="n">VectorInput</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VectorState</span><span class="p">:</span>
+        <span class="n">x_next</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">x_next</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">dt</span>
+        <span class="n">x_next</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">x_next</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">x_next</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">input_covariance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">VectorState</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="n">VectorInput</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">jacobian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">VectorState</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="n">VectorInput</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">F</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">u</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">F</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">F</span>
+
+<span class="n">process_model</span> <span class="o">=</span> <span class="n">WheeledRobot</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span> <span class="c1"># instantiate it</span>
+</pre></div>
+</div>
+</div>
+<p>Now, lets just double check that we did everything correctly by comparing with finite difference. All process models inherit the <code class="docutils literal notranslate"><span class="pre">jacobian_fd()</span></code> method, which computes the Jacobian using finite difference. We can use this to compare with our analytic Jacobian.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">VectorState</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">VectorInput</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Analyical:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">process_model</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">dt</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Finite difference:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">process_model</span><span class="o">.</span><span class="n">jacobian_fd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">dt</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Analyical:
+[[ 1.          0.          0.        ]
+ [-0.01682942  1.          0.        ]
+ [ 0.01080605  0.          1.        ]]
+
+Finite difference:
+[[ 1.          0.          0.        ]
+ [-0.01682943  1.          0.        ]
+ [ 0.01080604  0.          1.        ]]
+</pre></div></div>
+</div>
+<p>The Jacobians match almost perfectly, but differ slightly due to errors in finite difference. This is expected, as finite difference is only an approximation. Nevertheless, finite difference is generally sufficiently accurate for most applications.</p>
+<div class="alert alert-block alert-warning"><p>Note: The <code class="docutils literal notranslate"><span class="pre">jacobian</span></code> methods must <em>always</em> return a 2D array.</p>
+</div><p>Moving on to the measurement model, which was previously defined to be</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{y}_k = || \mathbf{r}_k - \boldsymbol{\ell}^{(i)} ||\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{r}_k\)</span> is the robot’s position and <span class="math notranslate nohighlight">\(\boldsymbol{\ell}^{(i)}\)</span> is the <span class="math notranslate nohighlight">\(i\)</span>th landmark. The measurement model Jacobian with respect to the state is</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{G} := \frac{\partial g(\mathbf{x}_k)}{\partial \mathbf{x}_k} = \begin{bmatrix} 0 &amp; \frac{(\mathbf{r}_k - \boldsymbol{\ell}^{(i)})^T}{||(\mathbf{r}_k - \boldsymbol{\ell}^{(i)})||} \end{bmatrix},\]</div>
+<p>and we can implement this in navlie by again overriding the <code class="docutils literal notranslate"><span class="pre">jacobian()</span></code> method in our measurement model. Adding this to our measurement model from before:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">RangeToLandmark</span><span class="p">(</span><span class="n">nav</span><span class="o">.</span><span class="n">MeasurementModel</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">landmark_position</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">landmark_position</span> <span class="o">=</span> <span class="n">landmark_position</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">VectorState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">landmark_position</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">covariance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">VectorState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.1</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">jacobian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">VectorState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="n">G</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">landmark_position</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">landmark_position</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">G</span>
+
+<span class="n">meas_model</span> <span class="o">=</span> <span class="n">RangeToLandmark</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Analyical:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">meas_model</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Finite difference:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">meas_model</span><span class="o">.</span><span class="n">jacobian_fd</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Analyical:
+[[0.         0.70710678 0.70710678]]
+
+Finite difference:
+[[0.         0.70710696 0.70710696]]
+</pre></div></div>
+</div>
+<p>We can again see that the results match nicely.</p>
+</section>
+<section id="Jacobians---Lie-Group-Approach">
+<h2>Jacobians - Lie Group Approach<a class="headerlink" href="#Jacobians---Lie-Group-Approach" title="Permalink to this heading">¶</a></h2>
+<p>Now, lets see how to implement analytical Jacobians when states belong to Lie groups. In the previous example the state was <span class="math notranslate nohighlight">\(\mathbf{T} \in SE(2)\)</span> and the process model was</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{T}_{k+1} = \mathbf{T}_k \exp(\boldsymbol{\varpi}^\wedge_k \Delta t).\]</div>
+<p>To derive the Jacobian, we can “perturb” both sides of the equation and manipulate. This is a common technique for deriving Lie Jacobians, and for computing matrix-vector derivatives in general. For more details, we recommend reading <a class="reference external" href="http://asrl.utias.utoronto.ca/~tdb/bib/barfoot_ser17.pdf">State Estimation for Robotics by Tim Barfoot</a>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\mathbf{T}_{k+1} &amp;= \mathbf{T}_k \exp(\boldsymbol{\varpi}^\wedge_k \Delta t) \\
+\bar{\mathbf{T}}_{k+1} \exp(\delta \boldsymbol{\xi}_{k+1}^\wedge) &amp;= \bar{\mathbf{T}}_{k} \exp(\delta \boldsymbol{\xi}_{k}^\wedge) \exp(\boldsymbol{\varpi}^\wedge_k \Delta t) \\
+ \exp(\delta \boldsymbol{\xi}_{k+1}^\wedge) &amp;= \underbrace{\bar{\mathbf{T}}_{k+1}^{-1} \bar{\mathbf{T}}_{k}}_{\exp(\boldsymbol{\varpi}^\wedge \Delta t)^{-1}} \exp(\delta \boldsymbol{\xi}_{k}^\wedge) \exp(\boldsymbol{\varpi}^\wedge_k \Delta t) \\
+ \exp(\delta \boldsymbol{\xi}_{k+1}^\wedge) &amp;= \exp((\mathbf{Ad}(\exp(\boldsymbol{\varpi}^\wedge \Delta t)^{-1}) \delta \boldsymbol{\xi}_{k})^\wedge) \\
+ \delta \boldsymbol{\xi}_{k+1} &amp;= \underbrace{\mathbf{Ad}(\exp(\boldsymbol{\varpi}^\wedge \Delta t)^{-1})}_{\mathbf{F}} \delta \boldsymbol{\xi}_{k}
+\end{aligned}\end{split}\]</div>
+<p>There, we used the <em>adjoint matrix</em> <span class="math notranslate nohighlight">\(\mathbf{Ad}(\cdot)\)</span>, to invoke the identity <span class="math notranslate nohighlight">\(\mathbf{X}^{-1} \exp(\boldsymbol{\xi}^\wedge) \mathbf{X} = \exp(\mathbf{Ad}(\mathbf{X}) \boldsymbol{\xi}^\wedge)\)</span>, which is true for any <span class="math notranslate nohighlight">\(\mathbf{X} \in SE(2)\)</span>. The adjoint matrix for <span class="math notranslate nohighlight">\(SE(2)\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{Ad}(\mathbf{T}) = \begin{bmatrix} 1 &amp; \mathbf{0} \\ - \boldsymbol{\Omega} \mathbf{r} &amp; \mathbf{C} \end{bmatrix}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\boldsymbol{\Omega} = \begin{bmatrix} 0 &amp; -1 \\ 1 &amp;0 \end{bmatrix}\)</span>.</p>
+<div class="alert alert-block alert-info"><p>Note: in this Jacobian derivation, we perturbed the state <span class="math notranslate nohighlight">\(\mathbf{T} = \bar{\mathbf{T}} \exp(\delta \boldsymbol{\xi}^\wedge)\)</span> “on the right” because that corresponds to what was implemented in the <code class="docutils literal notranslate"><span class="pre">plus()</span></code> method of our <code class="docutils literal notranslate"><span class="pre">SE2State</span></code> class. It is important to be consistent here for everything to work.</p>
+</div><p>Now, we can implement this Jacobian in navlie by overriding the <code class="docutils literal notranslate"><span class="pre">jacobian()</span></code> method in our process model. Adding this to our process model from before:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">navlie.lib</span><span class="w"> </span><span class="kn">import</span> <span class="n">SE2State</span><span class="p">,</span> <span class="n">VectorInput</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">expm</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">wedge_se2</span><span class="p">(</span><span class="n">x</span><span class="p">:</span><span class="n">np</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span>   <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+                     <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>     <span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span>
+                     <span class="p">[</span>   <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>    <span class="mi">0</span><span class="p">]])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">adjoint_se2</span><span class="p">(</span><span class="n">T</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">T</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">T</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="n">Omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+    <span class="n">Ad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">Ad</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">Ad</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">C</span>
+    <span class="n">Ad</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span> <span class="n">Omega</span> <span class="o">@</span> <span class="n">r</span>
+    <span class="k">return</span> <span class="n">Ad</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">WheeledRobotSE2</span><span class="p">(</span><span class="n">nav</span><span class="o">.</span><span class="n">ProcessModel</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_covariance_matrix</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">=</span> <span class="n">input_covariance_matrix</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">SE2State</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span><span class="n">VectorInput</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">u</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">x_next</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">x_next</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span> <span class="o">@</span> <span class="n">expm</span><span class="p">(</span><span class="n">wedge_se2</span><span class="p">(</span><span class="n">u</span> <span class="o">*</span> <span class="n">dt</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">x_next</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">input_covariance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">SE2State</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span><span class="n">VectorInput</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">jacobian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">SE2State</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span><span class="n">VectorInput</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">u</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">adjoint_se2</span><span class="p">(</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="n">wedge_se2</span><span class="p">(</span><span class="n">u</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)))</span>
+
+<span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.1</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">process_model</span> <span class="o">=</span> <span class="n">WheeledRobotSE2</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">SE2State</span><span class="p">(</span><span class="n">expm</span><span class="p">(</span><span class="n">wedge_se2</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]))))</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">VectorInput</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Analyical:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">process_model</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">dt</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Finite difference:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">process_model</span><span class="o">.</span><span class="n">jacobian_fd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">dt</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Analyical:
+[[ 1.          0.          0.        ]
+ [ 0.0394695   0.92106099  0.38941834]
+ [ 0.19470917 -0.38941834  0.92106099]]
+
+Finite difference:
+[[ 1.00000000e+00 -1.10747782e-11 -1.10747782e-11]
+ [ 3.94695038e-02  9.21060995e-01  3.89418343e-01]
+ [ 1.94709171e-01 -3.89418342e-01  9.21060994e-01]]
+</pre></div></div>
+</div>
+<p>Note that when using Lie groups, our Jacobian no longer has dependence on the state itself. This can be a tangible advantage when the state estimate has high uncertainty, where using a traditional approach can result in excessive linearization errors when the state estimate is far from the true value.</p>
+</section>
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="lie_groups.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Toy Problem - Lie group approach</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="composite.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Composite States</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.1.2.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

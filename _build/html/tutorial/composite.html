@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Composite States &#8212; navlie 0.1.0 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/blank.css?v=c4c5097c" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=40769cce"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Toy Batch SLAM Example" href="batch.html" />
+    <link rel="prev" title="Jacobians in navlie" href="jacobians.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">navlie</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  Home
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../tutorial.html">
+  Tutorial
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorial.html">
+   1. Getting Started
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="traditional.html">
+   2. Toy Problem - Traditional
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lie_groups.html">
+   3. Toy Problem - Lie groups
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="jacobians.html">
+   4. Specifying Jacobians
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   4. Composite States
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="batch.html">
+   Toy Batch SLAM Example
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Inheriting-from-CompositeState">
+   Inheriting from
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     CompositeState
+    </span>
+   </code>
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="Composite-States">
+<h1>Composite States<a class="headerlink" href="#Composite-States" title="Permalink to this heading">¶</a></h1>
+<p>The <a class="reference internal" href="../_autosummary/navlie.composite.CompositeState.html"><span class="doc">CompositeState</span></a> is a class that allows you to arbitarily combine multiple states, potentially of different types, into a new state that can be used with the navlie framework.</p>
+<p>Let’s consider the previous example where we used the following <span class="math notranslate nohighlight">\(SE(2)\)</span> pose transformation matrix to represent the state:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{T} = \begin{bmatrix} \mathbf{C}_{ab} &amp; \mathbf{r}_a \\ \mathbf{0} &amp; 1 \end{bmatrix} \in SE(2).\end{split}\]</div>
+<p>Suppose we now also want to estimate a wheel odometry bias <span class="math notranslate nohighlight">\(\mathbf{b} \in \mathbb{R}^2\)</span> in addition to the robot’s pose. Our state is now</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{x} = (\mathbf{T}, \mathbf{b}) \in SE(2) \times \mathbb{R}^2.\]</div>
+<p>This can be implemented easily using the <a class="reference internal" href="../_autosummary/navlie.composite.CompositeState.html"><span class="doc">CompositeState</span></a> class in one of two ways: either directly or by inheritance. We’ll show the former approach first.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">navlie</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nav</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Define the pose and bias as their own states</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">SE2State</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="n">stamp</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">state_id</span><span class="o">=</span><span class="s2">&quot;pose&quot;</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">VectorState</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="n">stamp</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">state_id</span><span class="o">=</span><span class="s2">&quot;bias&quot;</span><span class="p">)</span>
+
+<span class="c1"># Combine into a composite state, and its ready to use!</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">CompositeState</span><span class="p">([</span><span class="n">T</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">stamp</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+CompositeState(stamp=0.0, state_id=None) with substates:
+    SE2State(stamp=0.0, state_id=pose, direction=right)
+        [[ 0.99500417 -0.09983342  1.84679329]
+         [ 0.09983342  0.99500417  3.09491919]
+         [ 0.          0.          1.        ]]
+    VectorState(stamp=0.0, dof=2, state_id=bias)
+        [0.1 2. ]
+</pre></div></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">CompositeState</span></code> class is a subclass of the <code class="docutils literal notranslate"><span class="pre">State</span></code> class, but who’s <code class="docutils literal notranslate"><span class="pre">value</span></code> is a list of states, referred to as the <em>substates</em>. A convenience of this class is that the composite state’s <code class="docutils literal notranslate"><span class="pre">plus</span></code>, <code class="docutils literal notranslate"><span class="pre">minus</span></code>, and <code class="docutils literal notranslate"><span class="pre">copy</span></code> methods have already been implemented for you based on the implementations in the substates. Note that the order in which the states are listed is important, and will correspond to the order of the components in the vectors involved in the <code class="docutils literal notranslate"><span class="pre">plus</span></code> and <code class="docutils literal notranslate"><span class="pre">minus</span></code>
+operations. This can be demonstrated with the following example.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plus() and minus() have been defined for you. Here, the first three elements</span>
+<span class="c1"># of the vector to be added correspond to the pose (since it has 3 DOF), and the</span>
+<span class="c1"># last two to the bias.</span>
+<span class="n">x_temp</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">plus</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Result after plus():&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_temp</span><span class="p">)</span>
+
+<span class="n">dx</span> <span class="o">=</span> <span class="n">x_temp</span><span class="o">.</span><span class="n">minus</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Result after minus():&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Result after plus():
+CompositeState(stamp=0.0, state_id=None) with substates:
+    SE2State(stamp=0.0, state_id=pose, direction=right)
+        [[ 0.45359612 -0.89120736  1.80531705]
+         [ 0.89120736  0.45359612  6.55185711]
+         [ 0.          0.          1.        ]]
+    VectorState(stamp=0.0, dof=2, state_id=bias)
+        [4.1 7. ]
+
+Result after minus():
+[[1.]
+ [2.]
+ [3.]
+ [4.]
+ [5.]]
+</pre></div></div>
+</div>
+<p>Next, we must write a process model that works with this state. We’ll use the same process model as before, but now we’ll also include the wheel odometry bias in the state. The bias process model will be modelled as a random walk of the form</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{b}_{k+1} = \mathbf{b}_k + \Delta t \mathbf{w}^\mathrm{bias}_k,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{w}^{\mathrm{bias}}_k \sim \mathcal{N}(0, \mathbf{Q}^{\mathrm{bias}})\)</span> represents random error associated with this otherwise constant process model, which allows the bias to slowly vary. The process model for the composite state is then</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">expm</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">wedge_se2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span>   <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+                     <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>     <span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span>
+                     <span class="p">[</span>   <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>    <span class="mi">0</span><span class="p">]])</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">WheeledRobotWithBias</span><span class="p">(</span><span class="n">nav</span><span class="o">.</span><span class="n">ProcessModel</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_covariance_matrix</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">=</span> <span class="n">input_covariance_matrix</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">CompositeState</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">VectorInput</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
+        <span class="n">pose</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">bias</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">vel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">u</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">bias</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bias</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">x_next</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">x_next</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">pose</span><span class="o">.</span><span class="n">value</span> <span class="o">@</span> <span class="n">expm</span><span class="p">(</span><span class="n">wedge_se2</span><span class="p">(</span><span class="n">vel</span> <span class="o">*</span> <span class="n">dt</span><span class="p">))</span>
+
+        <span class="c1"># Largely data generation and jacobian purposes, we also update the bias</span>
+        <span class="c1"># state with an input, even if the input here is always zero in the</span>
+        <span class="c1"># nominal case.</span>
+        <span class="n">x_next</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">bias</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="n">u</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">dt</span>
+        <span class="k">return</span> <span class="n">x_next</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">input_covariance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">CompositeState</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">VectorInput</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span>
+
+<span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.1</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">process_model</span> <span class="o">=</span> <span class="n">WheeledRobotWithBias</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>We’d like to use the same measurement model as before, which was just a series of range measurements to known landmarks:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">RangeToLandmarkSE2</span><span class="p">(</span><span class="n">nav</span><span class="o">.</span><span class="n">MeasurementModel</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">landmark_position</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">measurement_covariance</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">landmark_position</span> <span class="o">=</span> <span class="n">landmark_position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">measurement_covariance</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">SE2State</span><span class="p">):</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">landmark_position</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">covariance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">SE2State</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span>
+
+<span class="n">R</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">landmarks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<p>The problem is that this was made for an <code class="docutils literal notranslate"><span class="pre">SE2State</span></code> instead of our new composite state, and specifically the line <code class="docutils literal notranslate"><span class="pre">pos</span> <span class="pre">=</span> <span class="pre">x.value[0:2,</span> <span class="pre">2]</span></code> is going to throw an error when we feed in a composite state. This is easy to change, but then that means we have to make a similar change for all sorts of different state definitions. An alternative is to use the <a class="reference internal" href="../_autosummary/navlie.composite.CompositeMeasurementModel.html"><span class="doc">CompositeMeasurementModel</span></a>, which is just a lightweight wrapper around one
+measurement model that “assigns” the model to a specific substate, referenced to by its <code class="docutils literal notranslate"><span class="pre">state_id</span></code> field. It is used as follows:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">meas_models</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">lm</span> <span class="ow">in</span> <span class="n">landmarks</span><span class="p">:</span>
+    <span class="n">meas_models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">nav</span><span class="o">.</span><span class="n">CompositeMeasurementModel</span><span class="p">(</span><span class="n">RangeToLandmarkSE2</span><span class="p">(</span><span class="n">lm</span><span class="p">,</span> <span class="n">R</span><span class="p">),</span> <span class="s2">&quot;pose&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">meas_models</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jacobian:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">meas_models</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+RangeToLandmarkSE2(of substate pose)
+Jacobian:
+[[0.         0.46544123 0.88507893 0.         0.        ]]
+</pre></div></div>
+</div>
+<p>This does mean that the <code class="docutils literal notranslate"><span class="pre">state_id</span></code> of each substate must be unique, but this is a good practice anyway. The <code class="docutils literal notranslate"><span class="pre">CompositeMeasurementModel</span></code> will then automatically handle the extraction of the relevant substate from the composite state and pass it to the measurement model, as well as handle the corresponding Jacobian accordingly. This is a good way to avoid having to write a lot of boilerplate code for different state definitions. Notice in the above example that the Jacobian has two extra zeros
+at the end, which correspond to the bias state that has no effect on the measurement. This is automatically handled by the <code class="docutils literal notranslate"><span class="pre">CompositeMeasurementModel</span></code>.</p>
+<p>With our problem now set up, we can run a filter on it with the same snippet as usual!</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dg</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">DataGenerator</span><span class="p">(</span>
+    <span class="n">process_model</span><span class="o">=</span><span class="n">process_model</span><span class="p">,</span>
+    <span class="n">input_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span>
+    <span class="n">input_covariance</span><span class="o">=</span> <span class="n">Q</span><span class="p">,</span>
+    <span class="n">input_freq</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">meas_model_list</span><span class="o">=</span><span class="n">meas_models</span><span class="p">,</span>
+    <span class="n">meas_freq_list</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">state_data</span><span class="p">,</span> <span class="n">input_data</span><span class="p">,</span> <span class="n">meas_data</span> <span class="o">=</span> <span class="n">dg</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># First, define the filter</span>
+<span class="n">kalman_filter</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">ExtendedKalmanFilter</span><span class="p">(</span><span class="n">process_model</span><span class="p">)</span>
+<span class="n">P0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mf">0.1</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.1</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.1</span><span class="o">**</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># Initial covariance</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">StateWithCovariance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">P0</span><span class="p">)</span>  <span class="c1"># Estimate and covariance in one container</span>
+
+<span class="n">meas_idx</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">meas_data</span><span class="p">[</span><span class="n">meas_idx</span><span class="p">]</span>
+<span class="n">estimates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">input_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+    <span class="c1"># Fuse any measurements that have occurred.</span>
+    <span class="k">while</span> <span class="n">y</span><span class="o">.</span><span class="n">stamp</span> <span class="o">&lt;</span> <span class="n">input_data</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stamp</span> <span class="ow">and</span> <span class="n">meas_idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">meas_data</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">kalman_filter</span><span class="o">.</span><span class="n">correct</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+
+        <span class="c1"># Load the next measurement</span>
+        <span class="n">meas_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">meas_idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">meas_data</span><span class="p">):</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">meas_data</span><span class="p">[</span><span class="n">meas_idx</span><span class="p">]</span>
+
+    <span class="c1"># Predict until the next input is available</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">input_data</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stamp</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">stamp</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">kalman_filter</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+
+    <span class="n">estimates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">GaussianResultList</span><span class="o">.</span><span class="n">from_estimates</span><span class="p">(</span><span class="n">estimates</span><span class="p">,</span> <span class="n">state_data</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">plot_error</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Pose Estimation Errors&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;theta (rad)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;x (m)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y (m)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Bias Estimation Errors&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;ang. vel. (rad/s)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;forward vel. (m/s)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">plot_nees</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;NEES&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorial_composite_11_0.png" src="../_images/tutorial_composite_11_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorial_composite_11_1.png" src="../_images/tutorial_composite_11_1.png" />
+</div>
+</div>
+<section id="Inheriting-from-CompositeState">
+<h2>Inheriting from <code class="docutils literal notranslate"><span class="pre">CompositeState</span></code><a class="headerlink" href="#Inheriting-from-CompositeState" title="Permalink to this heading">¶</a></h2>
+<p>The previous example showed how to use the <code class="docutils literal notranslate"><span class="pre">CompositeState</span></code> class directly, but it’s also possible to inherit from it. This is useful if you want to add some extra methods or attributes to the composite state, or if you are going to frequently be using the same composite state. Here’s an example of how you would do it:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">WheeledRobotState</span><span class="p">(</span><span class="n">nav</span><span class="o">.</span><span class="n">CompositeState</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pose_values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">bias_values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">stamp</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="n">pose</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">SE2State</span><span class="p">(</span><span class="n">pose_values</span><span class="p">,</span> <span class="n">stamp</span><span class="o">=</span><span class="n">stamp</span><span class="p">,</span> <span class="n">state_id</span><span class="o">=</span><span class="s2">&quot;pose&quot;</span><span class="p">)</span>
+        <span class="n">bias</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">VectorState</span><span class="p">(</span><span class="n">bias_values</span><span class="p">,</span> <span class="n">stamp</span><span class="o">=</span><span class="n">stamp</span><span class="p">,</span> <span class="n">state_id</span><span class="o">=</span><span class="s2">&quot;bias&quot;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">([</span><span class="n">pose</span><span class="p">,</span> <span class="n">bias</span><span class="p">],</span> <span class="n">stamp</span><span class="o">=</span><span class="n">stamp</span><span class="p">)</span>
+
+    <span class="c1"># Define any getter that you want for convenience!</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pose</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bias</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">WheeledRobotState</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">WheeledRobotState</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="n">stamp</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WheeledRobotState(stamp=0.1, state_id=None) with substates:
+    SE2State(stamp=0.1, state_id=pose, direction=right)
+        [[ 0.99500417 -0.09983342  1.84679329]
+         [ 0.09983342  0.99500417  3.09491919]
+         [ 0.          0.          1.        ]]
+    VectorState(stamp=0.1, dof=2, state_id=bias)
+        [0.1 2. ]
+SE2State(stamp=0.1, state_id=pose, direction=right)
+    [[ 0.99500417 -0.09983342  1.84679329]
+     [ 0.09983342  0.99500417  3.09491919]
+     [ 0.          0.          1.        ]]
+</pre></div></div>
+</div>
+<p>This can end up looking a lot cleaner, and is potentially more flexible to work with since you can add methods and attributes to the composite state. For example, because of the getters we defined above, we can access the pose and bias more ergonomically with <code class="docutils literal notranslate"><span class="pre">x.pose</span></code> and <code class="docutils literal notranslate"><span class="pre">x.bias</span></code>.</p>
+</section>
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="jacobians.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Jacobians in navlie</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="batch.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Toy Batch SLAM Example</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.1.2.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

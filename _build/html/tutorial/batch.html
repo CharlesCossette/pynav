@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Toy Batch SLAM Example &#8212; navlie 0.1.0 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/blank.css?v=c4c5097c" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=40769cce"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Documentation" href="../api.html" />
+    <link rel="prev" title="Composite States" href="composite.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">navlie</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  Home
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../tutorial.html">
+  Tutorial
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorial.html">
+   1. Getting Started
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="traditional.html">
+   2. Toy Problem - Traditional
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lie_groups.html">
+   3. Toy Problem - Lie groups
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="jacobians.html">
+   4. Specifying Jacobians
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="composite.html">
+   4. Composite States
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Toy Batch SLAM Example
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Toy Batch SLAM Example
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#Evaluating-The-Measurement-Model">
+     Evaluating The Measurement Model
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Creating-the-simulated-data">
+   Creating the simulated data
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Batch-Estimation:-From-Weighted-Nonlinear-Least-Squares-to-Unweighted-Nonlinear-Least-Squares">
+   Batch Estimation: From Weighted Nonlinear Least Squares to Unweighted Nonlinear Least Squares
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Defining-Nonlinear-Least-Squares-Problems-in-navlie">
+   Defining Nonlinear Least Squares Problems in navlie
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#Generating-the-Initial-Estimate">
+     Generating the Initial Estimate
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#Run-Batch!">
+     Run Batch!
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Extracting-the-Estimates-and-the-Covariances">
+   Extracting the Estimates and the Covariances
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="Toy-Batch-SLAM-Example">
+<h1>Toy Batch SLAM Example<a class="headerlink" href="#Toy-Batch-SLAM-Example" title="Permalink to this heading">¶</a></h1>
+<p>In this example, we’ll consider a similar example to the one in the toy problems notebook, but this time, we’ll consider it in a batch estimation framework. To increase the complexity of the problem, we will also assume that the landmark positions are unknown, and will be part of the state for estimation. Our goal will be to estimate the robot’s trajectory and the landmark positions using all of the measurements collected. The state to estimate is given by</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{X} = \left(\mathbf{T}_{1}, \mathbf{T}_2, \ldots, \mathbf{T}_K,
+\mathbf{p}_a^1, \mathbf{p}_a^2, \mathbf{p}_a^M \right),\]</div>
+<p>where similarly to in the previous example <span class="math notranslate nohighlight">\(\mathbf{T}_k \in SE(2)\)</span> denotes the pose of the robot at time <span class="math notranslate nohighlight">\(k\)</span>, written as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{T}_k = \begin{bmatrix} \mathbf{C}_{ab_k}(\theta) &amp; \mathbf{r}_a^k \\ \mathbf{0} &amp; 1 \end{bmatrix} \in SE(2).\end{split}\]</div>
+<p>Additionally, <span class="math notranslate nohighlight">\(\mathbf{p}_a^i \in \mathbb{R}^2\)</span> denotes the position of the <span class="math notranslate nohighlight">\(i\)</span>’th landmark in the inertial frame. Similarly to the previous example, the robot collects wheel odometry measurements, which are used as the input to the process model given by</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{T}_{k+1} = \mathbf{T}_k \exp(\boldsymbol{\varpi}_k^\wedge \Delta t)\]</div>
+<p>In this example, the robot will also collects direct measurements of the landmark position, resolved in the body frame of the robot. The measurement model is now a function of one robot pose and one landmark state, such that the measurement of the <span class="math notranslate nohighlight">\(j\)</span>’th landmark at time <span class="math notranslate nohighlight">\(k\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\mathbf{y}_{jk} &amp;= \mathbf{g}_{jk} \left(\mathbf{T}_k, \mathbf{p}_a^j \right) +
+\mathbf{v}_{jk} \\
+&amp;= \mathbf{C}_{ab_k}^\mathsf{T} \left( \mathbf{p}_a^j - \mathbf{r}_a^k \right) + \mathbf{v}_{jk} \\
+\end{aligned}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{v}_{jk} \sim \mathcal{N} \left( \mathbf{0}, \mathbf{R}_{jk} \right)\)</span> is white noise. Notice that unlike the previous example, each measurement is a function of two states. To define the measurement model, the <a class="reference internal" href="../_autosummary/navlie.composite.CompositeState.html"><span class="doc">CompositeState</span></a> class can be leveraged. First, we’ll start by defining some parameters that we’ll need for the rest of the example, and then we’ll implement the measurement model.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">navlie</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nav</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymlg</span><span class="w"> </span><span class="kn">import</span> <span class="n">SO3</span>
+
+<span class="c1">### Parameters used for the example</span>
+<span class="c1"># if true, the information matrix in the batch problem will be inverted to compute the covariance</span>
+<span class="n">compute_covariance</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1"># If false, will run without noise, and all states initialized to groundtruth</span>
+<span class="n">noise</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1"># String keys to identify the states</span>
+<span class="n">pose_key_str</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span>
+<span class="n">landmark_key_str</span> <span class="o">=</span> <span class="s2">&quot;l&quot;</span>
+<span class="c1"># The end time of the simulation</span>
+<span class="n">t_end</span> <span class="o">=</span> <span class="mf">20.0</span>
+
+<span class="c1">### Defining the measurement model</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PointRelativePositionSLAM</span><span class="p">(</span><span class="n">nav</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">MeasurementModel</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pose_state_id</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span> <span class="n">landmark_state_id</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span> <span class="n">R</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pose_state_id</span> <span class="o">=</span> <span class="n">pose_state_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">landmark_state_id</span> <span class="o">=</span> <span class="n">landmark_state_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_R</span> <span class="o">=</span> <span class="n">R</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">CompositeState</span><span class="p">):</span>
+        <span class="n">pose</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">SE2State</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">get_state_by_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pose_state_id</span><span class="p">)</span>
+        <span class="n">landmark</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">VectorState</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">get_state_by_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">landmark_state_id</span><span class="p">)</span>
+
+        <span class="n">r_a</span> <span class="o">=</span> <span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">p_a</span> <span class="o">=</span> <span class="n">landmark</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">C_ab</span> <span class="o">=</span> <span class="n">pose</span><span class="o">.</span><span class="n">attitude</span>
+        <span class="k">return</span> <span class="n">C_ab</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="p">(</span><span class="n">p_a</span> <span class="o">-</span> <span class="n">r_a</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">jacobians</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">CompositeState</span><span class="p">):</span>
+        <span class="n">pose</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">SE2State</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">get_state_by_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pose_state_id</span><span class="p">)</span>
+        <span class="n">landmark</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">VectorState</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">get_state_by_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_landmark_state_id</span><span class="p">)</span>
+
+        <span class="n">r_zw_a</span> <span class="o">=</span> <span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">C_ab</span> <span class="o">=</span> <span class="n">pose</span><span class="o">.</span><span class="n">attitude</span>
+        <span class="n">r_pw_a</span> <span class="o">=</span> <span class="n">landmark</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">C_ab</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="p">(</span><span class="n">r_pw_a</span> <span class="o">-</span> <span class="n">r_zw_a</span><span class="p">)</span>
+
+        <span class="c1"># Compute Jacobian of measurement model with respect to the state</span>
+        <span class="k">if</span> <span class="n">pose</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="s2">&quot;right&quot;</span><span class="p">:</span>
+            <span class="n">pose_jacobian</span> <span class="o">=</span> <span class="n">pose</span><span class="o">.</span><span class="n">jacobian_from_blocks</span><span class="p">(</span>
+                <span class="n">attitude</span><span class="o">=-</span><span class="n">SO3</span><span class="o">.</span><span class="n">odot</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">position</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">r_zw_a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">pose</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span><span class="p">:</span>
+            <span class="n">pose_jacobian</span> <span class="o">=</span> <span class="n">pose</span><span class="o">.</span><span class="n">jacobian_from_blocks</span><span class="p">(</span>
+                <span class="n">attitude</span><span class="o">=-</span><span class="n">C_ab</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">SO3</span><span class="o">.</span><span class="n">odot</span><span class="p">(</span><span class="n">r_pw_a</span><span class="p">),</span> <span class="n">position</span><span class="o">=-</span><span class="n">C_ab</span><span class="o">.</span><span class="n">T</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Compute jacobian of measurement model with respect to the landmark</span>
+        <span class="n">landmark_jacobian</span> <span class="o">=</span> <span class="n">pose</span><span class="o">.</span><span class="n">attitude</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="c1"># Build full Jacobian</span>
+        <span class="n">state_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">state</span><span class="o">.</span><span class="n">state_id</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">]</span>
+        <span class="n">jac_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">jac_dict</span><span class="p">[</span><span class="n">state_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">pose_jacobian</span>
+        <span class="n">jac_dict</span><span class="p">[</span><span class="n">state_ids</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">landmark_jacobian</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">jacobian_from_blocks</span><span class="p">(</span><span class="n">jac_dict</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">covariance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">CompositeState</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_R</span>
+</pre></div>
+</div>
+</div>
+<section id="Evaluating-The-Measurement-Model">
+<h2>Evaluating The Measurement Model<a class="headerlink" href="#Evaluating-The-Measurement-Model" title="Permalink to this heading">¶</a></h2>
+<p>To evaluate this measurement model, we just need to create a CompositeState that contains the robot state and the landmark state, as done below.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pose</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">SE2State</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]),</span> <span class="n">state_id</span><span class="o">=</span><span class="n">pose_key_str</span><span class="p">)</span>
+<span class="n">landmark</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">VectorState</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]),</span> <span class="n">state_id</span><span class="o">=</span><span class="n">landmark_key_str</span><span class="p">)</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.01</span>
+
+<span class="c1"># Create the measurement model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">PointRelativePositionSLAM</span><span class="p">(</span><span class="n">pose_key_str</span><span class="p">,</span> <span class="n">landmark_key_str</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+
+<span class="c1"># Create a composite state</span>
+<span class="n">state</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">CompositeState</span><span class="p">([</span><span class="n">pose</span><span class="p">,</span> <span class="n">landmark</span><span class="p">])</span>
+<span class="c1"># Evaluate the model</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[ 0.09642014]
+ [-0.05653507]]
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Creating-the-simulated-data">
+<h1>Creating the simulated data<a class="headerlink" href="#Creating-the-simulated-data" title="Permalink to this heading">¶</a></h1>
+<p>Next, we’ll create the simulated data for this example. To use the data generator included in navlie, it is convenient to define the same relative position measurement model, but where the landmarks are included in the state vector. We’ll start by defining some landmarks and creating the relative position measurement model with known landmarks. Then, we’ll create the process model using the BodyFrameVelocity process model defined in navlie.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">PointRelativePosition</span><span class="p">(</span><span class="n">nav</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">MeasurementModel</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">landmark_position</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">landmark_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">R</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">landmark_position</span> <span class="o">=</span> <span class="n">landmark_position</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">landmark_id</span> <span class="o">=</span> <span class="n">landmark_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_R</span> <span class="o">=</span> <span class="n">R</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">SE2State</span><span class="p">):</span>
+        <span class="n">r_a</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">p_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">landmark_position</span>
+        <span class="n">C_ab</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">attitude</span>
+        <span class="k">return</span> <span class="n">C_ab</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="p">(</span><span class="n">p_a</span> <span class="o">-</span> <span class="n">r_a</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">covariance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">CompositeState</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_R</span>
+
+<span class="c1"># Now, create some landmarks arranged in a circle and create a list of</span>
+<span class="c1"># measurement models, one for each landmark</span>
+<span class="n">landmark_positions</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)])</span> <span class="k">for</span> <span class="n">theta</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span>
+<span class="n">landmarks</span> <span class="o">=</span> <span class="p">[</span><span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">VectorState</span><span class="p">(</span><span class="n">landmark</span><span class="p">,</span> <span class="n">state_id</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">landmark_key_str</span><span class="si">}{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">landmark</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">landmark_positions</span><span class="p">)]</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.1</span>
+<span class="n">meas_models</span> <span class="o">=</span> <span class="p">[</span><span class="n">PointRelativePosition</span><span class="p">(</span><span class="n">l</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">l</span><span class="o">.</span><span class="n">state_id</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">landmarks</span><span class="p">]</span>
+
+<span class="c1"># Create the process model</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.4</span>
+<span class="n">process_model</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">BodyFrameVelocity</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
+
+<span class="c1"># Input profile</span>
+<span class="n">input_profile</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">t</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Generate the data</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">SE2State</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+<span class="n">dg</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">DataGenerator</span><span class="p">(</span>
+    <span class="n">process_model</span><span class="p">,</span>
+    <span class="n">input_profile</span><span class="p">,</span>
+    <span class="n">Q</span><span class="p">,</span>
+    <span class="n">input_freq</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">meas_model_list</span><span class="o">=</span><span class="n">meas_models</span><span class="p">,</span>
+    <span class="n">meas_freq_list</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">meas_models</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">gt_poses</span><span class="p">,</span> <span class="n">input_list</span><span class="p">,</span> <span class="n">meas_list</span> <span class="o">=</span> <span class="n">dg</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="n">t_end</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">noise</span><span class="p">)</span>
+
+<span class="c1"># Plot the true state</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">plot_poses</span><span class="p">(</span><span class="n">gt_poses</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">landmark</span> <span class="ow">in</span> <span class="n">landmarks</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">landmark</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">landmark</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Groundtruth poses and landmarks&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorial_batch_5_0.png" src="../_images/tutorial_batch_5_0.png" />
+</div>
+</div>
+</section>
+<section id="Batch-Estimation:-From-Weighted-Nonlinear-Least-Squares-to-Unweighted-Nonlinear-Least-Squares">
+<h1>Batch Estimation: From Weighted Nonlinear Least Squares to Unweighted Nonlinear Least Squares<a class="headerlink" href="#Batch-Estimation:-From-Weighted-Nonlinear-Least-Squares-to-Unweighted-Nonlinear-Least-Squares" title="Permalink to this heading">¶</a></h1>
+<p>Now, we wish to estimate the full state of the system using all of the inputs and all of the measaurements. To do this, we want to define a nonlinear least squares problem of the form</p>
+<div class="math notranslate nohighlight">
+\[J (\mathcal{X}) = \frac{1}{2} \sum_{i=1}^N \mathbf{e}_i (\mathcal{X})^\mathsf{T} \mathbf{W}_i
+\mathbf{e}_i (\mathcal{X}),\]</div>
+<p>where <span class="math notranslate nohighlight">\(N\)</span> is the number of error terms in the problem, and each <span class="math notranslate nohighlight">\(\mathbf{e}_i (\mathcal{X})\)</span> is an error term that is function of the state. Additionally, <span class="math notranslate nohighlight">\(\mathbf{W}_i\)</span> is a weight matrix, generally the inverse covariance of the error. navlie has a nonlinear least squares solver <a class="reference internal" href="../_autosummary/navlie.batch.problem.html"><span class="doc">Problem</span></a> that can be used to solve general nonlinear least squares problems. However, the solver can only handle <em>unweighted</em> nonlinear least squares
+problems of the form</p>
+<div class="math notranslate nohighlight">
+\[J (\mathcal{X}) = \frac{1}{2} \sum_{i=1}^N \mathbf{e}_i (\mathcal{X})^\mathsf{T} \mathbf{e}_i (\mathcal{X}).\]</div>
+<p>Thankfully, converting the weighted nonlinear least squares problem to an equivalent unweighted problem is possible. Consider the Cholesky factorization of <span class="math notranslate nohighlight">\(\mathbf{W}\)</span>, given by</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{W}_i = \mathbf{L}_i \mathbf{L}_i^\mathsf{T}.\]</div>
+<p>Defining <span class="math notranslate nohighlight">\(\tilde{\mathbf{e}_i} = \mathbf{L}_i \mathbf{e}_i\)</span>, we can rewrite the original weighted cost function as</p>
+<div class="math notranslate nohighlight">
+\[J (\mathcal{X}) = \frac{1}{2} \tilde{\mathbf{e}_i} (\mathcal{X})^\mathsf{T} \tilde{\mathbf{e}_i} (\mathcal{X}).\]</div>
+<p>Thus, for each error term in the problem, the user must pay careful attention to weight the error by the square root of the inverse covariance matrix of that particular error term.</p>
+<p>Now that we’ve seen how to convert the original weighted nonlinear least squares problem into a nonweighted one, let’s explore how to define nonlinear least squares problems in navlie.</p>
+</section>
+<section id="Defining-Nonlinear-Least-Squares-Problems-in-navlie">
+<h1>Defining Nonlinear Least Squares Problems in navlie<a class="headerlink" href="#Defining-Nonlinear-Least-Squares-Problems-in-navlie" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">Problem</span></code> class in <code class="docutils literal notranslate"><span class="pre">navlie</span></code> is used to define and then solve nonlinear least squares problems of the form</p>
+<div class="math notranslate nohighlight">
+\[J (\mathcal{X}) = \frac{1}{2} \sum_{i=1}^N \mathbf{e}_i (\mathcal{X}_s)^\mathsf{T} \mathbf{e}_i
+(\mathcal{X}_s).\]</div>
+<p>where each error term is a function of <em>a subset</em> of the full state, written <span class="math notranslate nohighlight">\(\mathcal{X}_s\)</span>, where <span class="math notranslate nohighlight">\(\mathcal{X}_s \subset \mathcal{X}\)</span>. In <code class="docutils literal notranslate"><span class="pre">navlie</span></code> each <span class="math notranslate nohighlight">\(\mathbf{e}_i\)</span> is called a <code class="docutils literal notranslate"><span class="pre">Residual</span></code> (similarly to Ceres), and each state in the problem is called a <code class="docutils literal notranslate"><span class="pre">Variable</span></code>. In many problems, residuals correspond to one of three types:</p>
+<ul>
+<li><p>A prior residual of the form</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{e} \left(\mathcal{X}_k \right) = \mathcal{X}_k \ominus \tilde{\mathcal{X}}_k,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\tilde{\mathcal{X}}_k\)</span> is a prior estimate of the state at time <span class="math notranslate nohighlight">\(k\)</span>.</p>
+</li>
+<li><p>A process residual, defining an error using the process model for the state written</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{e} \left(\mathcal{X}_{k-1}, \mathcal{X}_k \right) = \mathcal{X}_k
+\ominus f \left(\mathcal{X}_{k-1}, \mathbf{u}_{k-1} \right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ominus\)</span> represents a general minus operator for the group, and <span class="math notranslate nohighlight">\(f (\mathcal{X}_{k-1}, \mathbf{u}_{k-1})\)</span> is the process model.</p>
+</li>
+<li><p>A measurement residual of the form</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{e} \left(\mathcal{X}_s \right) = \mathbf{y} - \mathbf{g} \left(\mathcal{X}_s \right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> is a measurement, <span class="math notranslate nohighlight">\(\mathbf{g}\)</span> is the measurement model, and <span class="math notranslate nohighlight">\(\mathcal{X}_s\)</span> is the subset of the state that the measurement model is a function of. Note that these are all <em>unweighted</em> forms of the residual.</p>
+</li>
+</ul>
+<p>To define a <code class="docutils literal notranslate"><span class="pre">Residual</span></code>, a user must inherit from the <code class="docutils literal notranslate"><span class="pre">Residual</span></code> base class defined in <a class="reference internal" href="../_autosummary/navlie.batch.residuals.html"><span class="doc">Residual</span></a>. Each <code class="docutils literal notranslate"><span class="pre">Residual</span></code> The user must then implement the <code class="docutils literal notranslate"><span class="pre">evaluate()</span></code> method, which computes the residual and the Jacobians of the residual with respect to each state that the residual is a function of. The <code class="docutils literal notranslate"><span class="pre">Residual</span></code> class must also contain the unique keys of each variable involved in the residual.</p>
+<p>In the toy batch SLAM example, we will define a prior residual on the first pose, process residuals that connect consecutive robot states through the process model, and measurement residuals that connect the robot states to the landmark states. The next section will show how these can be defined in navlie.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Defining the residuals</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">navlie.batch.residuals</span><span class="w"> </span><span class="kn">import</span> <span class="n">Residual</span>
+
+<span class="c1"># Define the prior residual, used to place a prior on the first state</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PriorResidual</span><span class="p">(</span><span class="n">Residual</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">keys</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Hashable</span><span class="p">],</span>
+                 <span class="n">prior_state</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">SE2State</span><span class="p">,</span>
+                 <span class="n">prior_covariance</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cov</span> <span class="o">=</span> <span class="n">prior_covariance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_x0</span> <span class="o">=</span> <span class="n">prior_state</span>
+        <span class="c1"># Precompute squarae-root of the inverse covariance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cov</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">states</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">nav</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">State</span><span class="p">],</span>
+                 <span class="n">compute_jacobians</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Extract the SE2State from the list</span>
+        <span class="c1"># The list should only be of length one since only one state is involved</span>
+        <span class="c1"># in this residual</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">states</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">minus</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x0</span><span class="p">)</span>
+        <span class="c1"># Weight the error by the square root of the information matrix</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_L</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">error</span>
+
+        <span class="c1"># Compute Jacobian of error w.r.t x</span>
+        <span class="k">if</span> <span class="n">compute_jacobians</span><span class="p">:</span>
+            <span class="c1"># jacobians should be a list with length equal to the number of</span>
+            <span class="c1"># states involved in this residual (in this case 1)</span>
+            <span class="n">jacobians</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">compute_jacobians</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">jacobians</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_L</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">x</span><span class="o">.</span><span class="n">minus_jacobian</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">error</span><span class="p">,</span> <span class="n">jacobians</span>
+
+        <span class="k">return</span> <span class="n">error</span>
+
+<span class="c1"># Define the process residual, which links two consecutive robot states</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ProcessResidual</span><span class="p">(</span><span class="n">Residual</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A generic process residual.</span>
+
+<span class="sd">    Can be used with any :class:`navlie.types.ProcessModel`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">keys</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Hashable</span><span class="p">],</span>
+        <span class="n">process_model</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">BodyFrameVelocity</span><span class="p">,</span>
+        <span class="n">u</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">Input</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_model</span> <span class="o">=</span> <span class="n">process_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_u</span> <span class="o">=</span> <span class="n">u</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">states</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">nav</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">State</span><span class="p">],</span>
+        <span class="n">compute_jacobians</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
+        <span class="c1"># Extract the states at times k-1 and k</span>
+        <span class="c1"># The list should be of length 2, since there are two states</span>
+        <span class="c1"># involved in this residual</span>
+        <span class="n">x_km1</span> <span class="o">=</span> <span class="n">states</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">x_k</span> <span class="o">=</span> <span class="n">states</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># Compute the timestamp from the states</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">x_k</span><span class="o">.</span><span class="n">stamp</span> <span class="o">-</span> <span class="n">x_km1</span><span class="o">.</span><span class="n">stamp</span>
+
+        <span class="c1"># Evaluate the process model, compute the error</span>
+        <span class="n">x_k_hat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_km1</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+
+        <span class="c1"># Compute the error, the difference between the state predicted from the</span>
+        <span class="c1"># process model and the actual state at time k</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">x_k</span><span class="o">.</span><span class="n">minus</span><span class="p">(</span><span class="n">x_k_hat</span><span class="p">)</span>
+
+        <span class="c1"># Scale the error by the square root of the info matrix</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_model</span><span class="o">.</span><span class="n">sqrt_information</span><span class="p">(</span><span class="n">x_km1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">e</span>
+
+        <span class="c1"># Compute the Jacobians of the residual w.r.t x_km1 and x_k</span>
+        <span class="k">if</span> <span class="n">compute_jacobians</span><span class="p">:</span>
+            <span class="c1"># jac_list should be a list of length two, where the first element</span>
+            <span class="c1"># is the jacobian of the residual w.r.t x_km1 and the second element</span>
+            <span class="c1"># is the Jacobian of the residual w.r.t x_k</span>
+            <span class="n">jac_list</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">compute_jacobians</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">jac_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">L</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_model</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span>
+                    <span class="n">x_km1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="p">,</span> <span class="n">dt</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">compute_jacobians</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">jac_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">x_k</span><span class="o">.</span><span class="n">minus_jacobian</span><span class="p">(</span><span class="n">x_k_hat</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">e</span><span class="p">,</span> <span class="n">jac_list</span>
+
+        <span class="k">return</span> <span class="n">e</span>
+
+<span class="c1"># Define the measurement residual, which links a robot state to a landmark</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PointRelativePositionResidual</span><span class="p">(</span><span class="n">Residual</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">keys</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Hashable</span><span class="p">],</span>
+        <span class="n">meas</span><span class="p">:</span> <span class="n">nav</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Measurement</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+        <span class="c1"># Store the measurement, where the measurement contains the model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meas</span> <span class="o">=</span> <span class="n">meas</span>
+        <span class="c1"># Evaluate the square root information a single time since it does not</span>
+        <span class="c1"># depend on the state in this case</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sqrt_information</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">meas</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">sqrt_information</span><span class="p">([])</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">states</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">nav</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">State</span><span class="p">],</span>
+        <span class="n">compute_jacobians</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
+        <span class="c1"># In this case, states is a list of length two, where the first element</span>
+        <span class="c1"># should be the robot state and the second element should be the</span>
+        <span class="c1"># landmark state.</span>
+
+        <span class="c1"># To evaluate the measurement model that we previously defined,</span>
+        <span class="c1"># we need to create a composite state from the list of states</span>
+        <span class="n">eval_state</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">CompositeState</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+
+        <span class="c1"># Evaluate the measurement model</span>
+        <span class="n">y_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">meas</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">eval_state</span><span class="p">)</span>
+        <span class="c1"># Compute the residual as the difference between the actual measurement</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">meas</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="n">y_check</span>
+
+        <span class="n">L</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sqrt_information</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">error</span>
+
+        <span class="k">if</span> <span class="n">compute_jacobians</span><span class="p">:</span>
+            <span class="c1"># Jacobians should be a list of length equal to the number of states</span>
+            <span class="n">jacobians</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+            <span class="c1"># The Jacobian of the residual is the negative of the measurement</span>
+            <span class="c1"># model Jacobian</span>
+            <span class="n">full_jac</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">meas</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">eval_state</span><span class="p">)</span>
+            <span class="c1"># The first 3 columns of the Jacobian are the Jacobian w.r.t the</span>
+            <span class="c1"># robot state, and the last 2 columns are the Jacobian w.r.t the</span>
+            <span class="c1"># landmark state</span>
+            <span class="k">if</span> <span class="n">compute_jacobians</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">jacobians</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">full_jac</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">compute_jacobians</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">jacobians</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">full_jac</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">:]</span>
+
+            <span class="k">return</span> <span class="n">error</span><span class="p">,</span> <span class="n">jacobians</span>
+        <span class="k">return</span> <span class="n">error</span>
+</pre></div>
+</div>
+</div>
+<section id="Generating-the-Initial-Estimate">
+<h2>Generating the Initial Estimate<a class="headerlink" href="#Generating-the-Initial-Estimate" title="Permalink to this heading">¶</a></h2>
+<p>Now that we’ve defined the residuals that will be used in the problem, we can now create the problem, and add all of our variables and residuals to the problem. We will first need an initial estimate for the states, where here, the initial estimate for the robot trajectory is generated via dead-reckoning of the noisy odometry measurements. The initial estimate for the landmarks in this example will be generated by simply perturbing the groundtruth landmark positions, but in practice, landmarks
+can be initialized by inverting the measurement model.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dead-reckon initial state forward using the noisy measurements</span>
+<span class="n">x0_hat</span> <span class="o">=</span> <span class="n">gt_poses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">x0_hat</span><span class="o">.</span><span class="n">state_id</span> <span class="o">=</span> <span class="n">pose_key_str</span> <span class="o">+</span> <span class="s2">&quot;0&quot;</span>
+<span class="n">init_pose_est</span> <span class="o">=</span> <span class="p">[</span><span class="n">x0_hat</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x0_hat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">input_list</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">input_list</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stamp</span> <span class="o">-</span> <span class="n">u</span><span class="o">.</span><span class="n">stamp</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">process_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">stamp</span> <span class="o">+</span> <span class="n">dt</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">state_id</span> <span class="o">=</span> <span class="n">pose_key_str</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span>
+    <span class="n">init_pose_est</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+
+<span class="c1"># Generate estimates of landmarks by perturbing the groundtruth landmarks</span>
+<span class="n">init_landmark_est</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">landmark</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">landmarks</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">noise</span><span class="p">:</span>
+        <span class="n">sigma_init</span> <span class="o">=</span> <span class="mf">0.4</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sigma_init</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">perturbed_landmark</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">VectorState</span><span class="p">(</span><span class="n">landmark</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sigma_init</span><span class="p">,</span> <span class="n">state_id</span><span class="o">=</span><span class="n">landmark</span><span class="o">.</span><span class="n">state_id</span><span class="p">)</span>
+    <span class="n">init_landmark_est</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">perturbed_landmark</span><span class="p">)</span>
+
+<span class="c1"># Plot the initial estimate compared to the groundtruth</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">plot_poses</span><span class="p">(</span><span class="n">gt_poses</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Groundtruth&quot;</span><span class="p">)</span>
+<span class="n">nav</span><span class="o">.</span><span class="n">plot_poses</span><span class="p">(</span><span class="n">init_pose_est</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Initial Estimate&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot the true and the estimated landmarks</span>
+<span class="k">for</span> <span class="n">landmark</span> <span class="ow">in</span> <span class="n">landmarks</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">landmark</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">landmark</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">landmark</span> <span class="ow">in</span> <span class="n">init_landmark_est</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">landmark</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">landmark</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;tab:red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x (m)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y (m)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0, 0.5, &#39;y (m)&#39;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorial_batch_10_1.png" src="../_images/tutorial_batch_10_1.png" />
+</div>
+</div>
+<p>Now that we’ve generated our initial estimate, we can create the nonlinear least squares problem and add our initial variable estimates to the problem. Each variable that we’d like to optimize needs to have an associated key that is unique to that variable - in this example, robot poses will have the keys <code class="docutils literal notranslate"><span class="pre">x0</span></code>, <code class="docutils literal notranslate"><span class="pre">x1</span></code>, <code class="docutils literal notranslate"><span class="pre">x2</span></code>, etc., and landmarks will have the keys <code class="docutils literal notranslate"><span class="pre">l0</span></code>, <code class="docutils literal notranslate"><span class="pre">l1</span></code>, <code class="docutils literal notranslate"><span class="pre">l2</span></code>, etc.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">navlie.batch.problem</span><span class="w"> </span><span class="kn">import</span> <span class="n">Problem</span>
+
+<span class="c1"># Create a problem with default settings</span>
+<span class="n">problem</span> <span class="o">=</span> <span class="n">Problem</span><span class="p">()</span>
+<span class="c1"># Add poses and landmarks to the problem</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">init_pose_est</span><span class="p">):</span>
+    <span class="n">problem</span><span class="o">.</span><span class="n">add_variable</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">state_id</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">landmark</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">init_landmark_est</span><span class="p">):</span>
+    <span class="n">problem</span><span class="o">.</span><span class="n">add_variable</span><span class="p">(</span><span class="n">landmark</span><span class="o">.</span><span class="n">state_id</span><span class="p">,</span> <span class="n">landmark</span><span class="p">)</span>
+
+<span class="c1"># Now, lets print the keys of the variables that are in the problem!</span>
+<span class="n">init_keys_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">variables_init</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First 10 keys: &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">init_keys_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Last 10 keys:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">init_keys_list</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+First 10 keys:
+[&#39;x1&#39;, &#39;x2&#39;, &#39;x3&#39;, &#39;x4&#39;, &#39;x5&#39;, &#39;x6&#39;, &#39;x7&#39;, &#39;x8&#39;, &#39;x9&#39;]
+Last 10 keys:
+[&#39;l0&#39;, &#39;l1&#39;, &#39;l2&#39;, &#39;l3&#39;, &#39;l4&#39;, &#39;l5&#39;, &#39;l6&#39;, &#39;l7&#39;, &#39;l8&#39;, &#39;l9&#39;]
+</pre></div></div>
+</div>
+<p>We can see that we’ve added all the poses to the problem, followed by all the landmarks. Next, let’s add in the error terms to the problem - one prior residual on the first pose, process residuals connecting consecutive poses, and measurement residuals connecting each pose and each landmark.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the estimated pose timestamps (we&#39;ll need this for later)</span>
+<span class="n">est_stamps</span> <span class="o">=</span> <span class="p">[</span><span class="n">state</span><span class="o">.</span><span class="n">stamp</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">init_pose_est</span><span class="p">]</span>
+
+<span class="n">init_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-7</span> <span class="c1"># set a small covariance since we&#39;ve initialized to groundtruth</span>
+<span class="n">x0_hat</span> <span class="o">=</span> <span class="n">init_pose_est</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">prior_residual</span> <span class="o">=</span> <span class="n">PriorResidual</span><span class="p">(</span><span class="n">x0_hat</span><span class="o">.</span><span class="n">state_id</span><span class="p">,</span> <span class="n">x0_hat</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">init_cov</span><span class="p">)</span>
+<span class="n">problem</span><span class="o">.</span><span class="n">add_residual</span><span class="p">(</span><span class="n">prior_residual</span><span class="p">)</span>
+
+<span class="c1"># Add process residuals</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">input_list</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+    <span class="n">key_1</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pose_key_str</span><span class="si">}{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">key_2</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pose_key_str</span><span class="si">}{</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">process_residual</span> <span class="o">=</span> <span class="n">ProcessResidual</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">key_1</span><span class="p">,</span> <span class="n">key_2</span><span class="p">],</span>
+        <span class="n">process_model</span><span class="p">,</span>
+        <span class="n">u</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">problem</span><span class="o">.</span><span class="n">add_residual</span><span class="p">(</span><span class="n">process_residual</span><span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">navlie.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">find_nearest_stamp_idx</span>
+
+<span class="c1"># Before adding in the measurements to the problem, we need to replace the</span>
+<span class="c1"># measurement model on the measurements with the measurement model with unknown</span>
+<span class="c1"># landmark position</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">meas</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">meas_list</span><span class="p">):</span>
+    <span class="c1"># Get the pose key</span>
+    <span class="n">pose_idx</span> <span class="o">=</span> <span class="n">find_nearest_stamp_idx</span><span class="p">(</span><span class="n">est_stamps</span><span class="p">,</span> <span class="n">meas</span><span class="o">.</span><span class="n">stamp</span><span class="p">)</span>
+    <span class="c1"># Get state at this id</span>
+    <span class="n">pose</span> <span class="o">=</span> <span class="n">init_pose_est</span><span class="p">[</span><span class="n">pose_idx</span><span class="p">]</span>
+    <span class="n">landmark_state_id</span> <span class="o">=</span> <span class="n">meas</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">landmark_id</span>
+    <span class="n">meas</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">PointRelativePositionSLAM</span><span class="p">(</span><span class="n">pose</span><span class="o">.</span><span class="n">state_id</span><span class="p">,</span> <span class="n">landmark_state_id</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+    <span class="n">key_1</span> <span class="o">=</span> <span class="n">pose</span><span class="o">.</span><span class="n">state_id</span>
+    <span class="n">key_2</span> <span class="o">=</span> <span class="n">landmark_state_id</span>
+    <span class="n">meas_residual</span> <span class="o">=</span> <span class="n">PointRelativePositionResidual</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">key_1</span><span class="p">,</span> <span class="n">key_2</span><span class="p">],</span>
+        <span class="n">meas</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">problem</span><span class="o">.</span><span class="n">add_residual</span><span class="p">(</span><span class="n">meas_residual</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="Run-Batch!">
+<h2>Run Batch!<a class="headerlink" href="#Run-Batch!" title="Permalink to this heading">¶</a></h2>
+<p>Now that all the variables and residuals have been added to the problem, we can run our solver on the problem! Calling <code class="docutils literal notranslate"><span class="pre">problem.solve()</span></code> will return a dictionary containing the optimized state and a summary of the optimization. The problem will output the cost at each iteration, as well as the step sizes taken, the change in cost <code class="docutils literal notranslate"><span class="pre">dC</span></code>, and the norm of the gradient.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solve the problem</span>
+<span class="n">opt_results</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
+<span class="n">variables_opt</span> <span class="o">=</span> <span class="n">opt_results</span><span class="p">[</span><span class="s2">&quot;variables&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">opt_results</span><span class="p">[</span><span class="s2">&quot;summary&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Initial cost: 10209.908382510479
+Iter: 0 || Cost: 2.1187e+03 || Step size: 1.8430e+01 || dC: 8.0913e+03 || dC/C: 3.8191e+00 || |grad|_inf: 2.5900e+02
+Iter: 1 || Cost: 1.9963e+03 || Step size: 2.1161e+00 || dC: 1.2235e+02 || dC/C: 6.1290e-02 || |grad|_inf: 8.5779e+00
+Iter: 2 || Cost: 1.9963e+03 || Step size: 5.0496e-02 || dC: 4.0240e-02 || dC/C: 2.0158e-05 || |grad|_inf: 3.1471e-01
+Iter: 3 || Cost: 1.9963e+03 || Step size: 4.9900e-03 || dC: 1.9980e-04 || dC/C: 1.0009e-07 || |grad|_inf: 4.1650e-02
+Iter: 4 || Cost: 1.9963e+03 || Step size: 2.6577e-04 || dC: 1.5637e-05 || dC/C: 7.8333e-09 || |grad|_inf: 2.0333e-03
+Iter: 5 || Cost: 1.9963e+03 || Step size: 1.1292e-05 || dC: 3.4423e-07 || dC/C: 1.7244e-10 || |grad|_inf: 1.7811e-04
+Iter: 6 || Cost: 1.9963e+03 || Step size: 1.7510e-06 || dC: 1.0526e-07 || dC/C: 5.2728e-11 || |grad|_inf: 1.3721e-05
+Iter: 7 || Cost: 1.9963e+03 || Step size: 1.0217e-07 || dC: 6.7209e-09 || dC/C: 3.3668e-12 || |grad|_inf: 1.5173e-06
+Iter: 8 || Cost: 1.9963e+03 || Step size: 4.5874e-08 || dC: 1.3465e-09 || dC/C: 6.7452e-13 || |grad|_inf: 3.0893e-07
+Number of states optimized: 6017.
+Number of error terms: 9997.
+Initial cost: 10209.908382510479.
+Final cost: 1996.258310853446.
+Total time: 40.7240629196167
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Extracting-the-Estimates-and-the-Covariances">
+<h1>Extracting the Estimates and the Covariances<a class="headerlink" href="#Extracting-the-Estimates-and-the-Covariances" title="Permalink to this heading">¶</a></h1>
+<p>To extract the covariance, we can use thee <code class="docutils literal notranslate"><span class="pre">problem.get_covariance_block()</span></code> method, which will extract the <em>marginal covariance</em> of a particular variable based on the state ID of that variable. Note that this is useful for visualizing three sigma bounds and individual NEES values for subsets of the state, but sometimes it is also useful to compute the NEES for the entire trajectory. The problem class also outputs the full information matrix of the problem, and the user can choose to manipulate
+this themselves after the optimization has completed.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract estimates</span>
+<span class="n">poses_results_list</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">nav</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">StateWithCovariance</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">pose</span> <span class="ow">in</span> <span class="n">init_pose_est</span><span class="p">:</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">variables_opt</span><span class="p">[</span><span class="n">pose</span><span class="o">.</span><span class="n">state_id</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">compute_covariance</span><span class="p">:</span>
+        <span class="c1"># Extract the covariance for only this current pose state</span>
+        <span class="n">cov</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">get_covariance_block</span><span class="p">(</span><span class="n">pose</span><span class="o">.</span><span class="n">state_id</span><span class="p">,</span> <span class="n">pose</span><span class="o">.</span><span class="n">state_id</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">poses_results_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nav</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">StateWithCovariance</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">cov</span><span class="p">))</span>
+
+<span class="n">landmarks_results_list</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">nav</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">StateWithCovariance</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">landmark</span> <span class="ow">in</span> <span class="n">init_landmark_est</span><span class="p">:</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">variables_opt</span><span class="p">[</span><span class="n">landmark</span><span class="o">.</span><span class="n">state_id</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">compute_covariance</span><span class="p">:</span>
+        <span class="n">cov</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">get_covariance_block</span><span class="p">(</span><span class="n">landmark</span><span class="o">.</span><span class="n">state_id</span><span class="p">,</span> <span class="n">landmark</span><span class="o">.</span><span class="n">state_id</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">landmarks_results_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nav</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">StateWithCovariance</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">cov</span><span class="p">))</span>
+
+<span class="c1"># Postprocess the results and plot</span>
+<span class="n">gaussian_result_list</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">GaussianResultList</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">nav</span><span class="o">.</span><span class="n">GaussianResult</span><span class="p">(</span><span class="n">poses_results_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">gt_poses</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">poses_results_list</span><span class="p">))],</span>
+<span class="p">)</span>
+
+<span class="c1"># Plot NEES</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">plot_nees</span><span class="p">(</span><span class="n">gaussian_result_list</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;NEES&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">plot_error</span><span class="p">(</span><span class="n">gaussian_result_list</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Estimation Errors&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;theta (rad)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;x (m)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y (m)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Plot the initial estimate, optimized estimates, and groundtruth</span>
+<span class="n">opt_poses</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">SE2State</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">state</span><span class="o">.</span><span class="n">state</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">poses_results_list</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">plot_poses</span><span class="p">(</span><span class="n">gt_poses</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Groundtruth&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">plot_poses</span><span class="p">(</span><span class="n">init_pose_est</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Initial Estimate&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">plot_poses</span><span class="p">(</span><span class="n">opt_poses</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;tab:green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Optimized Estimate&quot;</span><span class="p">)</span>
+
+<span class="n">opt_landmarks</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">nav</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">VectorState</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">state</span><span class="o">.</span><span class="n">state</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">landmarks_results_list</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">landmark</span> <span class="ow">in</span> <span class="n">landmarks</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">landmark</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">landmark</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">landmark</span> <span class="ow">in</span> <span class="n">init_landmark_est</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">landmark</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">landmark</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;tab:red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">landmark</span> <span class="ow">in</span> <span class="n">opt_landmarks</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">landmark</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">landmark</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;tab:green&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x (m)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y (m)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Visualize the sparsity pattern of the information matrix</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Sparsity pattern of the information matrix&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spy</span><span class="p">(</span><span class="n">opt_results</span><span class="p">[</span><span class="s2">&quot;info_matrix&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorial_batch_18_0.png" src="../_images/tutorial_batch_18_0.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorial_batch_18_1.png" src="../_images/tutorial_batch_18_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorial_batch_18_2.png" src="../_images/tutorial_batch_18_2.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorial_batch_18_3.png" src="../_images/tutorial_batch_18_3.png" />
+</div>
+</div>
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="composite.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Composite States</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../api.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">API Documentation</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.1.2.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
